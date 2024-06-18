@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  text-processing-api:
+    container_name: text-processing-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # set true only if INSTALL_DEV is unset in the environment.
+        INSTALL_DEV: ${INSTALL_DEV-true}
+    ports:
+      - 9000:9000
