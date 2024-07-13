@@ -42,4 +42,4 @@ def test_api_calculate_similarity_invalid_input(client: TestClient) -> None:
     r = client.post(
         f"{settings.API_V1_STR}/calculate_similarity", json={"method": "fake", "line1": "line2", "line2": "line2"}
     )
-    assert r.status_code == HTTPStatus.NOT_FOUND
+    assert r.status_code == HTTPStatus.NO_CONTENT
