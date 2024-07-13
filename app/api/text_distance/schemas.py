@@ -1,3 +1,5 @@
+from typing import Union
+
 from pydantic import BaseModel
 
 
@@ -11,4 +13,7 @@ class SimilarityCreate(BaseModel):
     method: str
     line1: str
     line2: str
-    similarity: int
+    similarity: Union[int, float]
+
+    class Config:
+        smart_union = True
