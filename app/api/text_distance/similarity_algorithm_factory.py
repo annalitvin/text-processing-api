@@ -1,6 +1,16 @@
 import textdistance as td
 
+from enum import Enum, unique
+
 from app.api.constants import ALGORITHM_NOT_EXISTS_ERROR_MSG
+
+
+@unique
+class AlgorithmType(Enum):
+    HAMMING = "hamming"
+    LEVENSTEIN = "levenshtein"
+    COSINE = "cosine"
+    JACCARD = "jaccard"
 
 
 class TextSimilarityAlgorithmFactory:
@@ -13,8 +23,8 @@ class TextSimilarityAlgorithmFactory:
         raise ValueError(ALGORITHM_NOT_EXISTS_ERROR_MSG)
 
     chose = {
-        "hamming": _algs.hamming,
-        "levenshtein": _algs.levenshtein,
-        "cosine": _algs.cosine,
-        "jaccard": _algs.jaccard,
+        AlgorithmType.HAMMING.value: _algs.hamming,
+        AlgorithmType.LEVENSTEIN.value: _algs.levenshtein,
+        AlgorithmType.COSINE.value: _algs.cosine,
+        AlgorithmType.JACCARD.value: _algs.jaccard,
     }
