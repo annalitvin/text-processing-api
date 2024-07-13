@@ -28,6 +28,20 @@ async def predict(request: Request, payload: PredictRequest) -> Any:
 
 @api_router.post("/calculate_similarity", name="calculate_similarity", response_model=SimilarityCreate)
 async def calculate_similarity(text_item: TextItem):
+    """
+    API to compare 2 strings using a given algorithm.
+
+    Used to compute the similarity between texts.
+    Supports the following similarity algorithms:
+    1. Levenshtein
+    2. Cosine
+    3. Jaccard
+    4. Hamming
+
+    :param text_item: line1 and line2 for comparison and the similarity algorithm.
+    :return: SimilarityCreate: object that contains the name of the comparison algorithm, strings to compare and
+    similarity.
+    """
     method = text_item.method
     try:
         algorithm = TextSimilarityAlgorithmFactory.make(method)
