@@ -10,7 +10,12 @@ from app.preprocessing.tools import upload_stopwords
 
 
 def text_preprocessing(
-    raw_text, cleaned_text=False, stemmed_text=False, lemmatize_text=False, parts_of_speech=False, sentiment_analysis=False
+    raw_text,
+    cleaned_text=False,
+    stemmed_text=False,
+    lemmatize_text=False,
+    parts_of_speech=False,
+    sentiment_analysis=False,
 ):
     # Download NLTK data
     nltk.download("punkt")
@@ -50,4 +55,4 @@ def text_preprocessing(
 if __name__ == "__main__":
     raw_text_file_path = join(config.raw_text_file_path, "raw_text.txt")
     test_text = open(raw_text_file_path, "r").read()
-    result = text_preprocessing(test_text, True, True, True, True)
+    result = text_preprocessing(test_text, True, True, True, True, True)

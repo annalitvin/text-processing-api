@@ -17,7 +17,7 @@ class TextPreparation:
         self,
         text: str,
     ):
-        self.text_normalizer: object = TextNormalizer(text)
+        self.text_normalizer: TextNormalizer = TextNormalizer(text)
 
     @property
     def text_removed_from_rare_words(self) -> Text:
