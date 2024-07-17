@@ -40,8 +40,7 @@ class TextNormalizer:
         :arg:
             threshold: int - number of times a word appears.
         """
-        words = self.tokenize(self.text)
-        word_freq = Counter(words)
+        word_freq = Counter(self.words)
         filtered_words = [word for word in self.words if word_freq[word] >= threshold]
         self.text = " ".join(filtered_words)
 
