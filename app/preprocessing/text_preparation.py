@@ -26,8 +26,8 @@ class TextPreparation:
         :return:
             Text - text with  stop words.
         """
-        filtered_tokens = self.cleaned_text(del_stopwords=False, remove_rare_words=True)
-        return " ".join(filtered_tokens)
+        self.cleaned_text(remove_rare_words=True)
+        return self.text_normalizer.text
 
     def cleaned_text(self, del_stopwords=False, remove_rare_words=False) -> List[Text]:
         """
@@ -50,7 +50,7 @@ class TextPreparation:
         """
 
         stemmer: PorterStemmer = PorterStemmer()
-        filtered_tokens = self.cleaned_text(del_stopwords=True, remove_rare_words=True)
+        filtered_tokens = self.cleaned_text(del_stopwords=True)
         stemmed = set()
         for token in tqdm(filtered_tokens):
             stemmed_word = stemmer.stem(token)
@@ -67,7 +67,7 @@ class TextPreparation:
             list - lemmatized words.
         """
         lemmatizer: WordNetLemmatizer = WordNetLemmatizer()
-        filtered_tokens = self.cleaned_text(del_stopwords=True, remove_rare_words=True)
+        filtered_tokens = self.cleaned_text(del_stopwords=True)
         lemmatized_words = set()
         for word in tqdm(filtered_tokens):
             lemmatized_word = lemmatizer.lemmatize(word)
