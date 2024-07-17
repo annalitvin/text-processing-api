@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.preprocessing.text_normalizer import TextNormalizer
+from app.preprocessing.text_preparation import TextPreparation
 
 
 @pytest.fixture(scope="module")
@@ -24,3 +25,8 @@ TEXT = (
 @pytest.fixture(params=[TEXT])
 def text_normalizer(request):
     return TextNormalizer(request.param)
+
+
+@pytest.fixture(params=[TEXT])
+def text_preparation(request):
+    return TextPreparation(request.param)

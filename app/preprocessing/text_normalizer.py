@@ -43,6 +43,7 @@ class TextNormalizer:
         word_freq = Counter(self.words)
         filtered_words = [word for word in self.words if word_freq[word] >= threshold]
         self.text = " ".join(filtered_words)
+        self.words = filtered_words
 
     def delete_stopwords(self, stop_words: list):
         """Remove stop words from list of tokenized words

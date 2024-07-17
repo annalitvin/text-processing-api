@@ -1,10 +1,11 @@
 import nltk
 
 from typing import List, Text
+
+import spacy
 from tqdm import tqdm
 
 from nltk import tree
-from nltk import WordNetLemmatizer
 from nltk import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 
@@ -50,12 +51,11 @@ class TextPreparation:
         """
 
         stemmer: PorterStemmer = PorterStemmer()
-        filtered_tokens = self.cleaned_text(del_stopwords=True)
-        stemmed = set()
+        filtered_tokens = self.cleaned_text(del_stopwords=True, remove_rare_words=True)
+        stemmed_tokens = []
         for token in tqdm(filtered_tokens):
             stemmed_word = stemmer.stem(token)
-            stemmed.add(stemmed_word)
-        stemmed_tokens = list(stemmed)
+            stemmed_tokens.append(stemmed_word)
         return stemmed_tokens
 
     def lemmatize(self) -> List[str]:
@@ -66,13 +66,13 @@ class TextPreparation:
         :return:
             list - lemmatized words.
         """
-        lemmatizer: WordNetLemmatizer = WordNetLemmatizer()
-        filtered_tokens = self.cleaned_text(del_stopwords=True)
-        lemmatized_words = set()
-        for word in tqdm(filtered_tokens):
-            lemmatized_word = lemmatizer.lemmatize(word)
-            lemmatized_words.add(lemmatized_word)
-        lemmatized_tokens = list(lemmatized_words)
+        model = spacy.load("en_core_web_sm")
+        filtered_tokens = self.cleaned_text(del_stopwords=True, remove_rare_words=True)
+        sentence = " ".join(filtered_tokens)
+        doc = model(sentence)
+        lemmatized_tokens = []
+        for token in tqdm(doc):
+            lemmatized_tokens.append(token.text)
         return lemmatized_tokens
 
     def extract_parts_of_speech(self) -> tree.Tree:
