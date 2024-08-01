@@ -1,4 +1,8 @@
-from pydantic import BaseSettings
+from os import path
+
+from pydantic.v1 import BaseSettings
+
+PARENT_DIR = path.dirname(path.abspath(__file__))
 
 
 class Settings(BaseSettings):
